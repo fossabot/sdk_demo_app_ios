@@ -8,6 +8,7 @@
 
 #import <ZendeskSDK/ZendeskSDK.h>
 #import <ZDCChat/ZDCChat.h>
+#import <ZendeskCoreSDK/ZendeskCoreSDK.h>
 
 #import "ZenHelpViewController.h"
 #import "SaveTheDateTabBarController.h"
@@ -31,7 +32,9 @@
         
         if ( email.length > 0) {
             
-            [ZDKConfig instance].userIdentity = [[ZDKJwtIdentity alloc] initWithJwtUserIdentifier:email];
+            ObjCJwt * identity = [[ObjCJwt alloc] initWithToken:email];
+            [[Zendesk instance] setIdentity: identity];
+//            [ZDKConfig instance].userIdentity = [[ZDKJwtIdentity alloc] initWithJwtUserIdentifier:email];
             return YES;
         }
     }
@@ -41,54 +44,54 @@
 
 -(void) setupSupportInformation {
 
-    [ZDKRequests configure:^(ZDKAccount *account, ZDKRequestCreationConfig *requestCreationConfig) {
-        // configgure additional info
-        NSString *appVersionString = [NSString stringWithFormat:@"version_%@",
-                                   [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-
-        
-        // Setting the custom form id to use the IOS Support form
-        [ZDKConfig instance].ticketFormId = @62609;
-        
-        // adding Application Version information
-        ZDKCustomField *customeFieldApplicationVersion = [[ZDKCustomField alloc] initWithFieldId:@24328555 andValue:appVersionString];
-        //OS version
-        ZDKCustomField *customFieldOSVersion = [[ZDKCustomField alloc] initWithFieldId:@24273979
-                                                                              andValue:[UIDevice currentDevice].systemVersion];
-        //Device model
-        ZDKCustomField *customFieldDeviceModel = [[ZDKCustomField alloc] initWithFieldId:@24273989
-                                                                                andValue:[ZDKDeviceInfo deviceType]];
-        //Device memory
-        NSString *deviceMemory = [NSString stringWithFormat:@"%f MB", [ZDKDeviceInfo totalDeviceMemory]];
-        ZDKCustomField *customFieldDeviceMemory = [[ZDKCustomField alloc] initWithFieldId:@24273999
-                                                                                andValue:deviceMemory];
-        //Device free space
-        NSString *deviceFreeSpace = [NSString stringWithFormat:@"%f GB", [ZDKDeviceInfo freeDiskspace]];
-        ZDKCustomField *customFieldDeviceFreeSpace = [[ZDKCustomField alloc] initWithFieldId:@24274009 andValue:deviceFreeSpace];
-        //Device battery level
-        NSString *deviceBatteryLevel = [NSString stringWithFormat:@"%f", [ZDKDeviceInfo batteryLevel]];
-        ZDKCustomField *customFieldDeviceBatteryLevel = [[ZDKCustomField alloc] initWithFieldId:@24274019 andValue:deviceBatteryLevel];
-        
-        
-        [ZDKConfig instance].customTicketFields = @[customeFieldApplicationVersion,
-                                                    customFieldOSVersion,
-                                                    customFieldDeviceModel,
-                                                    customFieldDeviceMemory,
-                                                    customFieldDeviceFreeSpace,
-                                                    customFieldDeviceBatteryLevel];
-
-        
-        requestCreationConfig.tags = @[@"ratemyapp_ios", @"paying_customer"];
-        
-        NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-        
-        if(appName) {
-            requestCreationConfig.additionalRequestInfo =
-            [NSString stringWithFormat:@"%@-------------\nSent from %@.", requestCreationConfig.contentSeperator, appName];
-        }
-            
-        
-    }];
+//    [ZDKRequests configure:^(ZDKAccount *account, ZDKRequestCreationConfig *requestCreationConfig) {
+//        // configgure additional info
+//        NSString *appVersionString = [NSString stringWithFormat:@"version_%@",
+//                                   [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+//
+//
+//        // Setting the custom form id to use the IOS Support form
+//        [ZDKConfig instance].ticketFormId = @62609;
+//
+//        // adding Application Version information
+//        ZDKCustomField *customeFieldApplicationVersion = [[ZDKCustomField alloc] initWithFieldId:@24328555 andValue:appVersionString];
+//        //OS version
+//        ZDKCustomField *customFieldOSVersion = [[ZDKCustomField alloc] initWithFieldId:@24273979
+//                                                                              andValue:[UIDevice currentDevice].systemVersion];
+//        //Device model
+//        ZDKCustomField *customFieldDeviceModel = [[ZDKCustomField alloc] initWithFieldId:@24273989
+//                                                                                andValue:[ZDKDeviceInfo deviceType]];
+//        //Device memory
+//        NSString *deviceMemory = [NSString stringWithFormat:@"%f MB", [ZDKDeviceInfo totalDeviceMemory]];
+//        ZDKCustomField *customFieldDeviceMemory = [[ZDKCustomField alloc] initWithFieldId:@24273999
+//                                                                                andValue:deviceMemory];
+//        //Device free space
+//        NSString *deviceFreeSpace = [NSString stringWithFormat:@"%f GB", [ZDKDeviceInfo freeDiskspace]];
+//        ZDKCustomField *customFieldDeviceFreeSpace = [[ZDKCustomField alloc] initWithFieldId:@24274009 andValue:deviceFreeSpace];
+//        //Device battery level
+//        NSString *deviceBatteryLevel = [NSString stringWithFormat:@"%f", [ZDKDeviceInfo batteryLevel]];
+//        ZDKCustomField *customFieldDeviceBatteryLevel = [[ZDKCustomField alloc] initWithFieldId:@24274019 andValue:deviceBatteryLevel];
+//
+//
+//        [ZDKConfig instance].customTicketFields = @[customeFieldApplicationVersion,
+//                                                    customFieldOSVersion,
+//                                                    customFieldDeviceModel,
+//                                                    customFieldDeviceMemory,
+//                                                    customFieldDeviceFreeSpace,
+//                                                    customFieldDeviceBatteryLevel];
+//
+//
+//        requestCreationConfig.tags = @[@"ratemyapp_ios", @"paying_customer"];
+//
+//        NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+//
+//        if(appName) {
+//            requestCreationConfig.additionalRequestInfo =
+//            [NSString stringWithFormat:@"%@-------------\nSent from %@.", requestCreationConfig.contentSeperator, appName];
+//        }
+//
+//
+//    }];
 }
 
 
@@ -121,12 +124,14 @@
         
         if([ZDKUIUtil isPad]) {
             
-            [ZDKHelpCenter presentHelpCenterOverview:self withContentModel:contentModel];
-            
+//            [ZDKHelpCenter presentHelpCenterOverview:self withContentModel:contentModel];
+            [ZDKHelpCenter presentHelpCenterOverview:self withContentModel:contentModel andConfigs:nil];
+
         } else {
             
             [tabbarController hideTabbar];
-            [ZDKHelpCenter pushHelpCenterOverview:self.navigationController withContentModel:contentModel];
+            [ZDKHelpCenter pushHelpCenterOverview:self withContentModel:contentModel andConfigs:nil];
+//            [ZDKHelpCenter pushHelpCenterOverview:self.navigationController withContentModel:contentModel];
         }
 
         
@@ -156,7 +161,8 @@
             
         }
         
-        [ZDKRequests presentRequestCreationWithViewController:(UIViewController*)self.tabBarController];
+//        [ZDKRequests presentRequestCreationWithViewController:(UIViewController*)self.tabBarController];
+        [ZDKRequestUi presentRequestListWith:(UIViewController*)self.tabBarController configurations:nil];
         
     }
     else {
@@ -176,12 +182,14 @@
         if([ZDKUIUtil isPad]) {
             
             self.navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-            [ZDKRequests presentRequestListWithViewController:self];
+//            [ZDKRequests presentRequestListWithViewController:self];
+            [ZDKRequestUi presentRequestListWith:self configurations:nil];
             
         } else {
             
             [tabbarController hideTabbar];
-            [ZDKRequests pushRequestListWithNavigationController:self.navigationController layoutGuide:ZDKLayoutRespectTop];
+//            [ZDKRequests pushRequestListWithNavigationController:self.navigationController layoutGuide:ZDKLayoutRespectTop];
+            [ZDKRequestUi pushRequestListWith:self.navigationController configurations:nil];
         }
 
         

@@ -84,25 +84,28 @@ extern NSString *APNS_ID_KEY;
         [defaults setObject:self.passwordTextField.text forKey:@"password"];
         [defaults synchronize];
         
-        [ZDKConfig instance].userIdentity = [[ZDKJwtIdentity alloc]
-                                             initWithJwtUserIdentifier:self.emailTextField.text];
+//        [ZDKConfig instance].userIdentity = [[ZDKJwtIdentity alloc]
+//                                             initWithJwtUserIdentifier:self.emailTextField.text];
+        
+        ObjCJwt * identity = [[ObjCJwt alloc] initWithToken:self.emailTextField.text];
+        [[Zendesk instance] setIdentity: identity];
         
         NSString *pushIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:APNS_ID_KEY];
         
         //Push is en
-        if(pushIdentifier) {
-            [[ZDKConfig instance] enablePushWithDeviceID:pushIdentifier callback:^(ZDKPushRegistrationResponse *registrationResponse, NSError *error) {
-                
-                if (error) {
-                    
-                    NSLog(@"Couldn't register device: %@. Error: %@ in %@", pushIdentifier, error, self.class);
-                    
-                } else if (registrationResponse) {
-                    
-                    NSLog(@"Successfully registered device: %@ in %@", pushIdentifier, self.class);
-                }
-            }];
-        }
+//        if(pushIdentifier) {
+//            [[ZDKConfig instance] enablePushWithDeviceID:pushIdentifier callback:^(ZDKPushRegistrationResponse *registrationResponse, NSError *error) {
+//                
+//                if (error) {
+//                    
+//                    NSLog(@"Couldn't register device: %@. Error: %@ in %@", pushIdentifier, error, self.class);
+//                    
+//                } else if (registrationResponse) {
+//                    
+//                    NSLog(@"Successfully registered device: %@ in %@", pushIdentifier, self.class);
+//                }
+//            }];
+//        }
         
         [self dismissViewControllerAnimated:YES completion:^{
             

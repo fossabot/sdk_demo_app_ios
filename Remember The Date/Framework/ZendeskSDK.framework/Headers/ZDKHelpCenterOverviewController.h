@@ -15,9 +15,10 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <ZendeskProviderSDK/ZDKHelpCenterConversationsUIDelegate.h>
+#import <ZendeskProviderSDK/ZDKHelpCenterOverviewContentModel.h>
+#import "ZDKHelpCenterConversationsUIDelegate.h"
+#import "ZDKUiConfiguration.h"
 
-@class ZDKHelpCenterOverviewContentModel;
 
 NS_ASSUME_NONNULL_BEGIN
 NS_AVAILABLE_IOS(8_0)
@@ -30,7 +31,7 @@ NS_AVAILABLE_IOS(8_0)
 
 @property (nonatomic, weak) id<ZDKHelpCenterConversationsUIDelegate> uiDelegate;
 
-- (instancetype) initWithHelpCenterOverviewModel:(ZDKHelpCenterOverviewContentModel *)helpCenterContentModel;
+- (instancetype) initWithHelpCenterOverviewModel:(ZDKHelpCenterOverviewContentModel *)helpCenterContentModel andConfigs:(nullable NSArray<ZDKUiConfiguration> *)configs;
 
 @end
 NS_ASSUME_NONNULL_END

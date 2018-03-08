@@ -15,8 +15,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <ZendeskProviderSDK/ZDKHelpCenterConversationsUIDelegate.h>
+#import "ZDKHelpCenterConversationsUIDelegate.h"
 #import "ZDKUIViewController.h"
+#import "ZDKUiConfiguration.h"
+
 
 @class ZDKHelpCenterOverviewContentModel;
 
@@ -32,22 +34,26 @@
  *
  *  @param navController          The navigation controller which to push onto.
  *  @param helpCenterContentModel A ZDKHelpCenterContentModel object that defines the content shown on screen
+ *  @param config                 Conversations screen configuration. Can be nil.
  *
- *  @since 1.7.0.1
+ *  @since 2.0.0.1
  */
 + (void) pushHelpCenterOverview:(UINavigationController *)navController
-               withContentModel:(ZDKHelpCenterOverviewContentModel *)helpCenterContentModel;
+               withContentModel:(ZDKHelpCenterOverviewContentModel *)helpCenterContentModel
+                     andConfigs:(NSArray<ZDKUiConfiguration> *)configs;
 
 /**
  *  Presents a Help Center Overview Screen modally with content defined by the ZDKHelpCenterOverviewContentModel.
  *
  *  @param viewController         View Controller from which to present from.
  *  @param helpCenterContentModel A ZDKHelpCenterContentModel object that defines the content shown on screen
+ *  @param config                 Conversations screen configuration. Can be nil.
  *
- *  @since 1.7.0.1
+ *  @since 2.0.0.1
  */
 + (void) presentHelpCenterOverview:(UIViewController *)viewController
-                  withContentModel:(ZDKHelpCenterOverviewContentModel *)helpCenterContentModel;
+                  withContentModel:(ZDKHelpCenterOverviewContentModel *)helpCenterContentModel
+                        andConfigs:(NSArray<ZDKUiConfiguration> *)config;
 
 /**
  *  Specify an icon that will be placed in the right nav bar button.
@@ -73,7 +79,6 @@
  Set a delegate which will be forwarded to Help Center view controllers.
  Replaces `setConversationsBarButtonImage:` and `setNavBarConversationsUIType:`
  as the means to customize the right navigation bar button functionality.
-
  @since 1.10.0.1
  
  @param delegate Implementation of ZDKHelpCenterConversationsUIDelegate.

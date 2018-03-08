@@ -15,10 +15,11 @@
  */
 
 #import <Foundation/Foundation.h>
-
+@import ZendeskCoreSDK;
+#import "ZDKUIViewController.h"
 /**
  *  ZDKPushUtil handles push notifications for Zendesk SDK related notifications.
- *  
+ *
  *  @since 1.2.0.1
  */
 @interface ZDKPushUtil : NSObject
@@ -28,15 +29,15 @@
  *  This handler attempt to pull out a request id from the push info
  *  dictionary and use this to fetch the updated ticket.
  *
- *  @since 1.2.0.1
+ *  @since x.x.x.x
  *
  *  @param pushInfo          The info dictionary from the app delegate remote notification methods.
  *  @param application       The application.
  *  @param presentationStyle The presentation style for a modally presented view.
  *  @param guide             A layout guid for the presented view controller.
- *  @param applicationId     The application ID. The same as in the ZDKConfig initialize method.
- *  @param zendeskUrl        Your Zendesk url. The same as in the ZDKConfig initialize method.
- *  @param oAuthClientId     The OAuth client ID. The same as in the ZDKConfig initialize method.
+ *  @param applicationId     The application ID. The same as in the ZDKSupport initialize method.
+ *  @param zendeskUrl        Your Zendesk url. The same as in the ZDKSupport initialize method.
+ *  @param oAuthClientId     The OAuth client ID. The same as in the ZDKSupport initialize method.
  */
 + (void) handlePush:(NSDictionary *)pushInfo
      forApplication:(UIApplication *)application
@@ -44,23 +45,24 @@
         layoutGuide:(ZDKLayoutGuide)guide
           withAppId:(NSString *)applicationId
          zendeskUrl:(NSString *)zendeskUrl
-           clientId:(NSString *)oAuthClientId;
+           clientId:(NSString *)oAuthClientId
+       userIdentity:(id<ObjCIdentity>)userIdentity;
 
 
 /**
- *  Handles a remote notification for Zendesk SDK related notifications. 
- *  This handler attempt to pull out a request id from the push info 
+ *  Handles a remote notification for Zendesk SDK related notifications.
+ *  This handler attempt to pull out a request id from the push info
  *  dictionary and use this to fetch the updated ticket.
  *
- *  @since 1.2.0.1
+ *  @since x.x.x.x
  *
  *  @param pushInfo          The info dictionary from the app delegate remote notification methods.
  *  @param application       The application.
  *  @param presentationStyle The presentation style for a modally presented view.
  *  @param guide             A layout guid for the presented view controller.
- *  @param applicationId     The application ID. The same as in the ZDKConfig initialize method.
- *  @param zendeskUrl        Your Zendesk url. The same as in the ZDKConfig initialize method.
- *  @param oAuthClientId     The OAuth client ID. The same as in the ZDKConfig initialize method.
+ *  @param applicationId     The application ID. The same as in the ZDKSupport initialize method.
+ *  @param zendeskUrl        Your Zendesk url. The same as in the ZDKSupport initialize method.
+ *  @param oAuthClientId     The OAuth client ID. The same as in the ZDKSupport initialize method.
  *  @param completionHandler The fetch completion handler from the app delegate remote notification method.
  */
 + (void) handlePush:(NSDictionary *)pushInfo
@@ -69,6 +71,8 @@
         layoutGuide:(ZDKLayoutGuide)guide
           withAppId:(NSString *)applicationId
          zendeskUrl:(NSString *)zendeskUrl
-           clientId:(NSString *)oAuthClientId fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
+           clientId:(NSString *)oAuthClientId
+       userIdentity:(id<ObjCIdentity>)userIdentity
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
 @end

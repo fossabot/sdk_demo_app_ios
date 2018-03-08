@@ -18,8 +18,9 @@
 
 #import "ZDKUIViewController.h"
 #import "ZDKArticleView.h"
-#import <ZendeskProviderSDK/ZDKHelpCenterConversationsUIDelegate.h>
+#import "ZDKHelpCenterConversationsUIDelegate.h"
 #import <MessageUI/MessageUI.h>
+#import "ZDKUiConfiguration.h"
 
 
 @class ZDKArticleView, ZDKHelpCenterArticle, ZDKHelpCenterArticleViewModel;
@@ -31,39 +32,41 @@
  */
 @interface ZDKArticleViewController : ZDKUIViewController<MFMailComposeViewControllerDelegate, ZDKHelpCentreArticleViewProtocol>
 
-
 /**
- *  Delegate for right nav bar button.   
+ *  Delegate for right nav bar button.
  *
  *  @since 1.10.0.1
  */
-@property (nonatomic, weak) id<ZDKHelpCenterConversationsUIDelegate> uiDelegate;
+@property (nonatomic, weak, nullable) id<ZDKHelpCenterConversationsUIDelegate> uiDelegate;
 
 /**
  * The article view.
  *
  *  @since 0.9.3.1
  */
-@property (nonatomic, strong) ZDKArticleView *articleView;
+@property (nonatomic, strong, nonnull) ZDKArticleView *articleView;
 
 
 /**
  * Initializes the article controller with an article.
  *
- *  @since 0.9.3.1
+ *  @since 2.0.0.1
  *
  * @param article A help center article.
+ * @param config  Request creation config
  */
-- (instancetype) initWithArticle:(ZDKHelpCenterArticle *)article;
+- (instancetype) initWithArticle:(ZDKHelpCenterArticle *)article
+                      andConfigs:(NSArray<ZDKUiConfiguration> *)configs;
 
 /**
- *  Initializes the article controller with an article view model which trigger a network call
+ *  Initializes the article controller with an article id triggers a network call
  *  to fetch the full article model.
  *
- *  @param articleViewModel An articleViewModel
+ *  @param articleId An article id
+ *  @param settings SDK settings.
  *
- *  @since 1.7.0.1
+ *  @since 2.0.0
  */
-- (instancetype) initWithArticleViewModel:(ZDKHelpCenterArticleViewModel *)articleViewModel;
+- (instancetype) initWithArticleId:(NSInteger)articleId andConfigs:(NSArray<ZDKUiConfiguration> *)configs;
 
 @end

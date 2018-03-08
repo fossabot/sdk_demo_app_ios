@@ -58,21 +58,23 @@ extern NSString *APNS_ID_KEY;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [ZDKConfig instance].userIdentity = [ZDKJwtIdentity new];
+//    [ZDKConfig instance].userIdentity = [ZDKJwtIdentity new];
+    ObjCJwt * identity = [ObjCJwt new];
+    [[Zendesk instance] setIdentity: identity];
     
     NSString *pushIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:APNS_ID_KEY];
     
     
-    [[ZDKConfig instance] disablePush:pushIdentifier callback:^(NSNumber *responseCode, NSError *error) {
-        if (error) {
-            
-            NSLog(@"Couldn't unregister device: %@. Error: %@ in %@", pushIdentifier, error, self.class);
-            
-        } else if (responseCode) {
-            
-            NSLog(@"Successfully unregistered device: %@ in %@", pushIdentifier, self.class);
-        }
-    }];
+//    [[ZDKConfig instance] disablePush:pushIdentifier callback:^(NSNumber *responseCode, NSError *error) {
+//        if (error) {
+//
+//            NSLog(@"Couldn't unregister device: %@. Error: %@ in %@", pushIdentifier, error, self.class);
+//
+//        } else if (responseCode) {
+//
+//            NSLog(@"Successfully unregistered device: %@ in %@", pushIdentifier, self.class);
+//        }
+//    }];
     
     [self dismissViewControllerAnimated:YES completion:^{
         

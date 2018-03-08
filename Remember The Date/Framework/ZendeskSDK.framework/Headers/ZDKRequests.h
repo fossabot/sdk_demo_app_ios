@@ -83,7 +83,7 @@ typedef void (^ZDKRequestError) (NSError *error);
  * @param account the account on which the subdomain and user can be set
  * @param requestCreationConfig the Request creation config which can be updated as desired.
  */
-typedef void (^ZDSDKConfigBlock) (ZDKAccount *account, ZDKRequestCreationConfig *requestCreationConfig);
+typedef void (^ZDSDKConfigBlock) (ZDKRequestCreationConfig *requestCreationConfig);
 
 
 /**
@@ -122,7 +122,7 @@ typedef void (^ZDSDKConfigBlock) (ZDKAccount *account, ZDKRequestCreationConfig 
  *
  *  @since 1.6.0.1
  */
-+ (void) presentRequestCreationWithViewController:(UIViewController *)viewController;
+//+ (void) presentRequestCreationWithViewController:(UIViewController *)viewController;
 
 /**
  *  Presents a request list view controller modally on top of the provided view controller modally.
@@ -131,7 +131,7 @@ typedef void (^ZDSDKConfigBlock) (ZDKAccount *account, ZDKRequestCreationConfig 
  *
  *  @since 1.6.0.1
  */
-+ (void) presentRequestListWithViewController:(UIViewController *)viewController;
+//+ (void) presentRequestListWithViewController:(UIViewController *)viewController;
 
 /**
  *  Pushes a request list view controller on top of the navigation stack.
@@ -143,7 +143,7 @@ typedef void (^ZDSDKConfigBlock) (ZDKAccount *account, ZDKRequestCreationConfig 
  *
  *  @since 1.6.0.1
  */
-+ (void) pushRequestListWithNavigationController:(UINavigationController *)navController layoutGuide:(ZDKLayoutGuide)aGuide;
+//+ (void) pushRequestListWithNavigationController:(UINavigationController *)navController layoutGuide:(ZDKLayoutGuide)aGuide;
 
 /**
  *  Pushes a request list view controller on top of the navigation stack.
@@ -152,7 +152,7 @@ typedef void (^ZDSDKConfigBlock) (ZDKAccount *account, ZDKRequestCreationConfig 
  *
  *  @since 1.6.0.1
  */
-+ (void) pushRequestListWithNavigationController:(UINavigationController *)navController;
+//+ (void) pushRequestListWithNavigationController:(UINavigationController *)navController;
 
 
 /**
