@@ -130,7 +130,7 @@
         } else {
             
             [tabbarController hideTabbar];
-            [ZDKHelpCenter pushHelpCenterOverview:self withContentModel:contentModel andConfigs:nil];
+            [ZDKHelpCenter pushHelpCenterOverview:self.navigationController withContentModel:contentModel andConfigs:nil];
 //            [ZDKHelpCenter pushHelpCenterOverview:self.navigationController withContentModel:contentModel];
         }
 

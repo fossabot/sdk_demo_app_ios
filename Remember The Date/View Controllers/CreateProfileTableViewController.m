@@ -90,6 +90,7 @@ extern NSString *APNS_ID_KEY;
         ObjCJwt * identity = [[ObjCJwt alloc] initWithToken:self.emailTextField.text];
         [[Zendesk instance] setIdentity: identity];
         
+        
         NSString *pushIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:APNS_ID_KEY];
         
         //Push is en

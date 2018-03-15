@@ -62,6 +62,7 @@ extern NSString *APNS_ID_KEY;
     ObjCJwt * identity = [ObjCJwt new];
     [[Zendesk instance] setIdentity: identity];
     
+    
     NSString *pushIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:APNS_ID_KEY];
     
     

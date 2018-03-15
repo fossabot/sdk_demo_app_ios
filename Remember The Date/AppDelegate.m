@@ -97,6 +97,7 @@ NSString * const APNS_ID_KEY = @"APNS_ID_KEY";
     
 #ifdef DEBUG
     [ZDKCoreLogger setEnabled:YES];
+    [ZDKCoreLogger setLogLevel:LogLevelVerbose]; //ZDK PLEASE
 #else
     [ZDKCoreLogger setEnabled:NO];
 #endif
@@ -110,8 +111,17 @@ NSString * const APNS_ID_KEY = @"APNS_ID_KEY";
 //                                     clientId:@"client_for_rtd_jwt_endpoint"];
     
     [Zendesk initializeWithAppId:@"e5dd7520b178e21212f5cc2751a28f4b5a7dc76698dc79bd"
-                        clientId:@"https://rememberthedate.zendesk.com"
-                      zendeskUrl:@"client_for_rtd_jwt_endpoint"];
+                        clientId:@"client_for_rtd_jwt_endpoint"
+                      zendeskUrl:@"https://rememberthedate.zendesk.com"];
+  
+    ObjCJwt * identity = [[ObjCJwt alloc] initWithToken:@"Ronanananaananann"];
+    [[Zendesk instance] setIdentity: identity];
+    
+    
+    [[ZDKSupport instance] initializeWithZendesk:[Zendesk instance]];
+   
+    
+    
 
     //
     // Style the SDK
